@@ -2,14 +2,10 @@ from model_arch import EmotionCNN
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from load_images import trainloader, testloader
+from dataloader import train_loader, test_loader
 
 # initialize model
 model = EmotionCNN()
-
-# get images
-test_loader = testloader
-train_loader = trainloader
 
 # define optimizer and loss function
 criterion = nn.CrossEntropyLoss()
@@ -20,7 +16,7 @@ num_epochs = 50
 for epoch in range(num_epochs):
     model.train()
     running_loss = 0.0
-    for images, labels in trainloader:
+    for images, labels in train_loader:
         optimizer.zero_grad()
         outputs = model(images)
         loss = criterion(outputs, labels)
@@ -34,7 +30,7 @@ for epoch in range(num_epochs):
     correct = 0
     total = 0
     with torch.no_grad():
-        for images, labels in testloader:
+        for images, labels in test_loader:
             outputs = model(images)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)

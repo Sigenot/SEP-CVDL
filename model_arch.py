@@ -28,8 +28,8 @@ class EmotionCNN(nn.Module):
     
     def forward(self, x):
         out = self.layer1(x)
-        out = self.layer2(x)
-        out = self.layer3(x)
+        out = self.layer2(out)
+        out = self.layer3(out)
         out = self.layer4(out)
         out = out.view(out.size(0), -1)
         out = self.fc(out)
