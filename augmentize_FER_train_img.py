@@ -15,7 +15,7 @@ transform_disg = transforms.Compose([ # no random rotation this time, to ensure 
 ])
 
 # main dataset folder and train/test sets
-dataset_dir = 'dataset'
+dataset_dir = 'dataset2_raf-db'
 base_dirs = ['train']
 
 emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise']
@@ -84,11 +84,21 @@ while i <= 4:
     i += 1
 
 """
-Numbers after augmentation:
+Numbers after augmentation dataset1:
 angry: 11985
 disgust: 9156
 fear: 12291
 happy: 21645 --> probably still leaning heavily to happy
 sad: 14490
 surprise: 9513
+"""
+
+"""
+Numbers after augmentation dataset2:
+angry: 1410
+disgust: 8604
+fear: 562
+happy: 9544
+sad: 3964
+surprise: 2580
 """
