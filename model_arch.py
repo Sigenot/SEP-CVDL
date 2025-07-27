@@ -45,7 +45,7 @@ class EmotionCNN(nn.Module):
         out = self.layer3(out)
         out = self.layer4(out)
         #print(out.shape)
-        out = out.view(out.size(0), -1) #flatten tensors
+        out = out.reshape(out.size(0), -1) #flatten tensors
         out = self.fc1(out)
         out = self.fc2(out)
         return out
