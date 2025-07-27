@@ -46,4 +46,4 @@ def load_img_and_lbl(dataset_type):
 
 # example call
 faces, labels = load_img_and_lbl('train')
-print(f"Loaded {len(faces)} images with shape {faces.shape} and labels with shape {labels.shape}")
+#print(f"Loaded {len(faces)} images with shape {faces.shape} and labels with shape {labels.shape}")
