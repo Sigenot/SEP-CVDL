@@ -3,12 +3,8 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import time
-import warnings
 from model_arch import EmotionCNN
 from preprocess import preprocess_img
-
-# suppress compatbility warnings
-warnings.filterwarnings("ignore")
 
 # load pretrained model
 model = EmotionCNN()
@@ -60,7 +56,7 @@ while True:
     cv2.imshow('Emotion Recognition', frame)
 
     # reduce refresh rate
-    time.sleep(0.1)
+    #time.sleep(0.1)
 
     # end the loop when q is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
