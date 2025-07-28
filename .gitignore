@@ -5,5 +5,5 @@ fer_neutral_train/
 raf_test_neutral/
 raf_train_neutral/
 eval_ck/
-evak_affectnet/
+eval_affectnet/
 __pycache__/
