@@ -2,10 +2,15 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
 from load_images import load_img_and_lbl
+from load_eval_data import load_img
 
 # get data from images
 train_faces, train_labels = load_img_and_lbl('train')
 test_faces, test_labels = load_img_and_lbl('test')
+
+eval_faces, eval_lables = load_img('test')
+
+
 
 # convert to pytorch-tensors
 faces_tensor = torch.tensor(train_faces, dtype=torch.float32).permute(0, 3, 1, 2)
@@ -32,3 +37,9 @@ test_faces_tensor = torch.tensor(test_faces, dtype=torch.float32).permute(0, 3, 
 test_labels_tensor = torch.tensor(np.argmax(test_labels, axis=1), dtype=torch.long)
 test_dataset = CustomDataset(test_faces_tensor, test_labels_tensor)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+
+# repeat for eval data
+eval_faces_tensor = torch.tensor(eval_faces, dtype=torch.float32).permute(0,3,1,2)
+eval_labels_tensor = torch.tensor(np.argmax(eval_lables, axis=1), dtype=torch.long)
+eval_dataset = CustomDataset(eval_faces_tensor, eval_labels_tensor)
+eval_loader = DataLoader(eval_dataset, batch_size=32, shuffle=False)
