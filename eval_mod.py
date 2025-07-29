@@ -1,5 +1,5 @@
 from model_arch import EmotionCNN
-from dataloader import eval_loader
+from dataloader import eval_loader, test_loader
 import torch
 from collections import OrderedDict
 import torch.nn.functional as F
@@ -10,8 +10,14 @@ emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise']
 # create instance of the model
 loaded_model = EmotionCNN()
 
+# dataloader
+dataloader = eval_loader
+
+# file for evaluation
+trained_mod = 'fer_model.pth'
+
 # load the saved model
-state_dict = torch.load('fer_model.pth', map_location=torch.device('cpu'))#print(state_dict) # debug
+state_dict = torch.load(trained_mod, map_location=torch.device('cpu'))#print(state_dict) # debug
 
 # adjust keys in dictionary
 new_state_dict = OrderedDict()
@@ -54,7 +60,7 @@ emotion_probabilities = torch.zeros(len(emotions))
 # deactivate calculation of gradients for prediction of emotion probabilities
 with torch.no_grad():
     total = 0
-    for images, _ in eval_loader:
+    for images, _ in dataloader:
         outputs = loaded_model(images)
         probabilities = F.softmax(outputs, dim=1)
         emotion_probabilities += torch.sum(probabilities, dim=0)
@@ -62,7 +68,7 @@ with torch.no_grad():
 
 # deactivate calculations of gradients for prediction of probabilities (each emotion)
 with torch.no_grad():
-    for images, labels in eval_loader:
+    for images, labels in dataloader:
         outputs = loaded_model(images)
         _, predicted = torch.max(outputs.data, 1)
 
