@@ -5,13 +5,14 @@ import cv2
 # path to dataset
 dataset_path_1 = 'dataset1_fer-2013'
 dataset_path_2 = 'dataset2_raf-db'
+dataset_path_3 = 'dataset3_affectnet'
 # emotions and respective folders
 emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise']
 
 def load_img_and_lbl(dataset_type):
     faces = []
     labels = []
-    dataset_paths = [dataset_path_1, dataset_path_2]
+    dataset_paths = [dataset_path_1, dataset_path_2, dataset_path_3]
 
     # iterate the file
     for dataset_path in dataset_paths:
