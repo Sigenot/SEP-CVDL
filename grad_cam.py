@@ -1,12 +1,12 @@
 import torch
 import numpy as np
 
-def grad_cam_pytorch(model, image, target_layer):
+def grad_cam(model, image_tensor, target_layer):
     # model eval initiation
     model.eval()
 
     # convert image to pytorch tensor
-    image_tensor = torch.from_numpy(image).float().unsqueeze(0)
+    #image_tensor = torch.from_numpy(image).float().unsqueeze(0)
 
     # activate hook to get output and gradient of target layer
     activations = None
