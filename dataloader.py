@@ -30,16 +30,16 @@ class CustomDataset(Dataset):
     
 # create dataset and dataloader
 train_dataset = CustomDataset(faces_tensor, labels_tensor)
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
 
 # repeat for test data
 test_faces_tensor = torch.tensor(test_faces, dtype=torch.float32).permute(0, 3, 1, 2)
 test_labels_tensor = torch.tensor(np.argmax(test_labels, axis=1), dtype=torch.long)
 test_dataset = CustomDataset(test_faces_tensor, test_labels_tensor)
-test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 
 # repeat for eval data
 eval_faces_tensor = torch.tensor(eval_faces, dtype=torch.float32).permute(0,3,1,2)
 eval_labels_tensor = torch.tensor(np.argmax(eval_lables, axis=1), dtype=torch.long)
 eval_dataset = CustomDataset(eval_faces_tensor, eval_labels_tensor)
-eval_loader = DataLoader(eval_dataset, batch_size=32, shuffle=False)
+eval_loader = DataLoader(eval_dataset, batch_size=16, shuffle=False)
