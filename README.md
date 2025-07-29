@@ -9,3 +9,12 @@ Accuracy log:
 
 raf-db augmentation:
     due to the low number of images we augmented the database 
+
+so far the model is trained on fer-2013 and raf-db.
+for evaluation purposes we downloaded a collection of different databases from kaggle.
+https://www.kaggle.com/datasets/tuna3686/fer-dataset
+We used two smaller databases for evaluation (CK and AffectNet_val)
+
+improve model by adding more images for disgust: https://www.sciencedirect.com/science/article/abs/pii/S0005796716301978#preview-section-cited-by
+https://zenodo.org/records/167037
+copied images to dataset2, so i dont have to change the image- and dataloader
