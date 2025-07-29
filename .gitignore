@@ -6,5 +6,5 @@ raf_test_neutral/
 raf_train_neutral/
 eval_ck/
 eval_affectnet/
-__pycache__/
+/home/tkr/Repos/SEP-CVDL/__pycache__/
 dataset3_affectnet/
