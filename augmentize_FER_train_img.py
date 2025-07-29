@@ -15,7 +15,7 @@ transform_disg = transforms.Compose([ # no random rotation this time, to ensure 
 ])
 
 # main dataset folder and train/test sets
-dataset_dir = 'dataset2_raf-db'
+dataset_dir = 'dataset3_affectnet'
 base_dirs = ['train']
 
 emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise']
