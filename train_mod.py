@@ -3,6 +3,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from dataloader import train_loader, test_loader, eval_loader
+from plt_train_results import plot_fun
+from save_train_results import create_csv
 
 # check if gpu is available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -22,6 +24,9 @@ train_accuracies = []
 test_accuracies = []
 eval_losses = []
 eval_accuracies = []
+
+eval_true_labels_per_epoch = []
+eval_pred_labels_per_epoch = []
 
 timeout = 10
 best_value = 0
@@ -79,6 +84,7 @@ for epoch in range(num_epochs):
             _, predicted = torch.max(outputs.data, 1)
             test_total += labels.size(0)
             test_correct += (predicted == labels).sum().item()
+
     test_loss = running_loss_test / len(test_loader)
     test_accuracy = test_correct / test_total
     test_losses.append(test_loss)
@@ -90,9 +96,11 @@ for epoch in range(num_epochs):
     running_loss_eval = 0.0
     eval_correct = 0
     eval_total = 0
+    eval_true_labels = []
+    eval_pred_labels = []
 
     with torch.no_grad():
-        for images, labels in eval_loader:
+        for images, labels,  in eval_loader:
             # move data to gpu
             images = images.to(device)
             labels = labels.to(device)
@@ -102,13 +110,24 @@ for epoch in range(num_epochs):
             _, predicted = torch.max(outputs.data, 1)
             eval_total += labels.size(0)
             eval_correct += (predicted == labels).sum().item()
+            eval_true_labels.extend(labels.cpu().numpy())
+            eval_pred_labels.extend(predicted.cpu().numpy())
+
+    # append labels for this epoch
+    eval_true_labels_per_epoch.append(eval_true_labels)
+    eval_pred_labels_per_epoch.append(eval_pred_labels)
+
     eval_loss = running_loss_eval / len(eval_loader)
     eval_accuracy = eval_correct / eval_total
     eval_losses.append(eval_loss)
     eval_accuracies.append(eval_accuracy)
 
+
+
     print(f"Epoch {epoch+1}, Train Loss: {train_loss}, Train Accuracy: {train_accuracy}, Test Loss: {test_loss}, Test Accuracy: {test_accuracy}, Eval Loss: {eval_loss}, Eval Accuracy: {eval_accuracy}%")
 
+    
+    
 # method to stop improvement declines
 
     if eval_accuracy > best_value:
@@ -123,6 +142,10 @@ for epoch in range(num_epochs):
         print("Lacking improvement: STOP")
         break
 
+
+# save output as plt and csv
+plot_fun(train_losses, test_losses, eval_losses, train_accuracies, test_accuracies, eval_accuracies)
+create_csv(eval_true_labels_per_epoch, eval_pred_labels_per_epoch)#, train_losses, test_losses, eval_losses, train_accuracies, test_accuracies, eval_accuracies)
 
 
 
