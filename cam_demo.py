@@ -8,7 +8,7 @@ from preprocess import preprocess_img
 
 # load pretrained model
 model = EmotionCNN()
-state_dict = torch.load('fer_model.pth', map_location=torch.device('cpu'))
+state_dict = torch.load('new_mod.pth', map_location=torch.device('cpu'))
 model.load_state_dict(state_dict)
 
 # emotion labels
