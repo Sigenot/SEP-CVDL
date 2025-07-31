@@ -2,6 +2,9 @@ import os
 import cv2
 import numpy as np
 
+import csv
+import os
+
 # dataset paths to evaluation data
 dataset_path_1 = 'eval_affectnet'
 dataset_path_2 = 'eval_ck'
@@ -11,6 +14,7 @@ emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise']
 def load_img(dataset_type):
     faces = []
     labels = []
+    image_paths = []
     dataset_paths = [dataset_path_1, dataset_path_2]
 
     # iterate the file
@@ -31,6 +35,7 @@ def load_img(dataset_type):
 
                 faces.append(img)
                 labels.append(emotion_index)
+                image_paths.append(img_path)
 
     # convert lists to numpy arrays
     faces = np.asarray(faces)
