@@ -10,8 +10,6 @@ test_faces, test_labels = load_img_and_lbl('test')
 
 eval_faces, eval_lables = load_img('test')
 
-
-
 # convert to pytorch-tensors
 faces_tensor = torch.tensor(train_faces, dtype=torch.float32).permute(0, 3, 1, 2)
 labels_tensor = torch.tensor(np.argmax(train_labels, axis=1), dtype=torch.long)
